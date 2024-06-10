@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재료 히스토리</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .home-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .home-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/index.html" class="home-button">홈으로</a>
+        <h1><%= item.name %> 히스토리</h1>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>타임스탬프</th>
+                <th>현재 수량</th>
+                <th>변경된 수량</th>
+                <th>기록한 사람</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% item.timestamps.forEach(ts => { %>
+                <tr>
+                    <td><%= new Date(ts.timestamp).toLocaleString() %></td>
+                    <td><%= ts.quantity %></td>
+                    <td><%= ts.changeQuantity %></td>
+                    <td><%= ts.user %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
