@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품 재고</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+            overflow-y: scroll;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .home-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        .title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .save-button {
+            background-color: #28a745;
+        }
+        .history-button {
+            background-color: #ff8c00;
+        }
+        .save-button:hover {
+            background-color: #218838;
+        }
+        .history-button:hover {
+            background-color: #e07b00;
+        }
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .quantity-controls button {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .quantity-controls button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .quantity-controls button:active {
+            transform: scale(0.95);
+        }
+        .quantity-input {
+            width: 100px;
+            padding: 5px;
+            text-align: center;
+            font-size: 1em;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="location.href='index.html'">홈으로</button>
+    <div class="container">
+        <div class="card" data-name="고무기둥 안전경계석[녹]">
+            <div class="title">고무기둥 안전경계석[녹]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[녹]')">히스토리</button>
+        </div>
+        <!-- 나머지 제품들도 동일한 형식으로 추가합니다. -->
+        <div class="card" data-name="고무기둥 안전경계석[적]">
+            <div class="title">고무기둥 안전경계석[적]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[적]')">히스토리</button>
+        </div>
+        <!-- 나머지 제품들도 동일한 형식으로 추가합니다. -->
+        <div class="card" data-name="고무기둥 안전경계석[황]">
+            <div class="title">고무기둥 안전경계석[황]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[황]')">히스토리</button>
+        </div>
+        <!-- 위와 같은 형식으로 모든 제품을 추가합니다. -->
+        <div class="card" data-name="고무기둥 안전경계석[청]">
+            <div class="title">고무기둥 안전경계석[청]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[청]')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석 상부[녹]">
+            <div class="title">고무기둥 안전경계석 상부[녹]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[녹]')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석 상부[적]">
+            <div class="title">고무기둥 안전경계석 상부[적]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[적]')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석 상부[황]">
+            <div class="title">고무기둥 안전경계석 상부[황]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[황]')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석 상부[청]">
+            <div class="title">고무기둥 안전경계석 상부[청]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[청]')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석[녹] 고급형">
+            <div class="title">고무기둥 안전경계석[녹] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[녹] 고급형')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석[적] 고급형">
+            <div class="title">고무기둥 안전경계석[적] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[적] 고급형')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석[황] 고급형">
+            <div class="title">고무기둥 안전경계석[황] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[황] 고급형')">히스토리</button>
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석[청] 고급형">
+            <div class="title">고무기둥 안전경계석[청] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석[청] 고급형')">히스토리</button>
+		
+        </div>
+        <div class="card" data-name="고무기둥 안전경계석 상부[녹] 고급형">
+            <div class="title">고무기둥 안전경계석 상부[녹] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[녹] 고급형')">히스토리</button>
+        </div>
+  
+        <div class="card" data-name="고무기둥 안전경계석 상부[적] 고급형">
+            <div class="title">고무기둥 안전경계석 상부[적] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[적] 고급형')">히스토리</button>
+        </div>
+  
+        <div class="card" data-name="고무기둥 안전경계석 상부[황] 고급형">
+            <div class="title">고무기둥 안전경계석 상부[황] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[황] 고급형')">히스토리</button>
+        </div>
+  
+        <div class="card" data-name="고무기둥 안전경계석 상부[청] 고급형">
+            <div class="title">고무기둥 안전경계석 상부[청] 고급형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 상부[청] 고급형')">히스토리</button>
+        </div>
+  
+  
+  
+        <div class="card" data-name="고무기둥 안전경계석 하부">
+            <div class="title">고무기둥 안전경계석 하부</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('고무기둥 안전경계석 하부')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱[적]">
+            <div class="title">마사유실 방지턱[적]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱[적]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱[황]">
+            <div class="title">마사유실 방지턱[황]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱[황]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱[청]">
+            <div class="title">마사유실 방지턱[청]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱[청]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱[녹]">
+            <div class="title">마사유실 방지턱[녹]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱[녹]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱 상부[황]">
+            <div class="title">마사유실 방지턱 상부[황]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱 상부[황]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱 상부[청]">
+            <div class="title">마사유실 방지턱 상부[청]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱 상부[청]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱 상부[녹]">
+            <div class="title">마사유실 방지턱 상부[녹]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱 상부[녹]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱 상부[적]">
+            <div class="title">마사유실 방지턱 상부[적]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱 상부[적]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 방지턱 하부">
+            <div class="title">마사유실 방지턱 하부</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 방지턱 하부')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[백]">
+            <div class="title">마사유실 경계라인[백]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[백]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[황]">
+            <div class="title">마사유실 경계라인[황]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[황]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[청]">
+            <div class="title">마사유실 경계라인[청]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[청]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[녹]">
+            <div class="title">마사유실 경계라인[녹]</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[녹]')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[백]구형">
+            <div class="title">마사유실 경계라인[백]구형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[백]구형')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[황]구형">
+            <div class="title">마사유실 경계라인[황]구형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[황]구형')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[청]구형">
+            <div class="title">마사유실 경계라인[청]구형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[청]구형')">히스토리</button>
+        </div>
+        <div class="card" data-name="마사유실 경계라인[녹]구형">
+            <div class="title">마사유실 경계라인[녹]구형</div>
+            <div>현재 수량 (개)</div>
+            <div class="current-quantity">0 개</div>
+            <div>입력 수량 (개)</div>
+            <input class="quantity-input" type="number" value="0">
+            <div>변경 수량 (개)</div>
+            <div class="change-quantity">0 개</div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity(this, -1)">감소</button>
+                <button onclick="changeQuantity(this, 1)">추가</button>
+            </div>
+            <button class="button save-button" onclick="saveQuantity(this)">저장</button>
+            <button class="button history-button" onclick="viewHistory('마사유실 경계라인[녹]구형')">히스토리</button>
+        </div>
+  
+
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000/inventory';
+        const urlParams = new URLSearchParams(window.location.search);
+        const user = urlParams.get('user');																	   
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.card').forEach(card => {
+                const name = card.dataset.name;
+                fetchLatestQuantity(card, name);
+            });
+        });
+
+        function fetchLatestQuantity(card, name) {
+            fetch(`${apiUrl}/latest/${encodeURIComponent(name)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const currentQuantity = data.quantity || 0;
+                    card.querySelector('.current-quantity').textContent = currentQuantity + ' 개';
+                })
+                .catch(error => {
+                    console.error('Error fetching latest quantity:', error);
+                });
+        }
+
+        function changeQuantity(button, amount) {
+            const card = button.closest('.card');
+            const inputQuantity = parseInt(card.querySelector('.quantity-input').value);
+            if (isNaN(inputQuantity) || inputQuantity <= 0) {
+                alert('올바른 수량을 입력하세요.');
+                return;
+            }
+            const changeQuantityValue = amount * inputQuantity;
+            const currentQuantityElem = card.querySelector('.current-quantity');
+            let currentQuantity = parseInt(currentQuantityElem.textContent) + changeQuantityValue;
+            card.querySelector('.current-quantity').textContent = currentQuantity + ' 개';
+            card.querySelector('.change-quantity').textContent = changeQuantityValue + ' 개';
+        }
+
+        function saveQuantity(button) {
+            const card = button.closest('.card');
+            const name = card.dataset.name;
+            const currentQuantity = parseInt(card.querySelector('.current-quantity').textContent);
+            const changeQuantity = parseInt(card.querySelector('.change-quantity').textContent);
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, quantity: currentQuantity, changeQuantity, user })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(name + '의 수량이 저장되었습니다: ' + data.item.quantity + ' 개');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function viewHistory(name) {
+           window.location.href = `/inventory/history?name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}`;
+        }
+    </script>
+</body>
+</html>

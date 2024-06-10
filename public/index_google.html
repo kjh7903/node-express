@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>재료 재고</title>
+  <style>
+    /* 이전에 제공된 CSS 스타일 유지 */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">재료명</div>
+    <div>현재 수량</div>
+    <div id="current-quantity">100</div> 
+    <div>입력 수량</div>
+    <input id="input-quantity" class="quantity-input" type="number" value="0" min="0">
+    <div>변경 수량</div>
+    <div id="change-quantity">0</div>
+    <div class="quantity-controls">
+      <button onclick="decreaseQuantity()">감소</button>
+      <button onclick="increaseQuantity()">추가</button>
+    </div>
+    <button class="button save-button" id="saveButton">저장</button>
+    <button class="button history-button" id="history-button">히스토리</button>
+  </div>
+
+  <div id="historyContainer" style="display:none;">
+    <h2>변경 내역</h2>
+    <ul id="historyList"></ul>
+  </div>
+
+  <script src="script.js"></script> 
+</body>
+</html>

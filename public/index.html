@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재고 관리</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin: 20px 0 10px;
+            color: #2c3e50;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .materials-button {
+            background-color: #3498db;
+        }
+        .products-button {
+            background-color: #28a745;
+        }
+        .materials-button:hover {
+            background-color: #2980b9;
+        }
+        .products-button:hover {
+            background-color: #218838;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">재고 관리</div>
+        <div class="section">
+            <div class="section-title">재료</div>
+            <div><button class="button materials-button" onclick="openModal('materials1.html')">재료(사출)</button></div>
+            <div><button class="button materials-button" onclick="openModal('materials2.html')">재료(박스)</button></div>
+        </div>
+        <div class="section">
+            <div class="section-title">제품</div>
+            <div><button class="button products-button" onclick="openModal('products1.html')">제품-고무기둥, 방지턱, 마사라인</button></div>
+            <div><button class="button products-button" onclick="openModal('products2.html')">제품-라인, 포인트, 잔디</button></div>
+            <div><button class="button products-button" onclick="openModal('products3.html')">제품-그레이팅, 매트, 계단</button></div>
+            <div><button class="button products-button" onclick="openModal('products4.html')">제품-손끼임, 기타</button></div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>입력하는 사람을 선택하세요:</p>
+            <select id="userSelect">
+                <option value="이상민">이상민</option>
+                <option value="정만수">정만수</option>
+                <option value="김준홍">김준홍</option>
+                <option value="정금재">정금재</option>
+                <option value="엄지영">엄지영</option>
+            </select>
+            <button class="button" onclick="navigateToPage()">확인</button>
+        </div>
+    </div>
+
+    <script>
+        let targetPage = '';
+
+        function openModal(page) {
+            targetPage = page;
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        function navigateToPage() {
+            const user = document.getElementById('userSelect').value;
+            if (user) {
+                window.location.href = `${targetPage}?user=${encodeURIComponent(user)}`;
+            }
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

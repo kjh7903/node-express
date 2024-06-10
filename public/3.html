@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히스토리</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+        .title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">재료명 히스토리</div>
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>저장 시간</th>
+                    <th>수량</th>
+                    <th>변경된 수량</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 데이터가 여기에 추가됩니다 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000/inventory/history';
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+
+        function loadHistory() {
+            fetch(`${apiUrl}/${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+                    tbody.innerHTML = '';  // 기존 내용 지우기
+
+                    data.timestamps.forEach(record => {
+                        const row = document.createElement('tr');
+                        const timestampCell = document.createElement('td');
+                        const quantityCell = document.createElement('td');
+                        const changeQuantityCell = document.createElement('td');
+
+                        timestampCell.textContent = new Date(record.timestamp).toLocaleString();
+                        quantityCell.textContent = record.quantity;
+                        changeQuantityCell.textContent = record.changeQuantity;
+
+                        row.appendChild(timestampCell);
+                        row.appendChild(quantityCell);
+                        row.appendChild(changeQuantityCell);
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        window.onload = loadHistory;
+    </script>
+</body>
+</html>
